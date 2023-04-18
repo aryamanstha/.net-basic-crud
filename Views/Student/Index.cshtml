@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "Index";
+}
+@if (TempData["success"]!=null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["success"]
+    </div>
+}
+
+<h1>Hello, Welcome to Student record Table</h1>
+<form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+<div class="container p-3">
+    <table class="table border-light">
+        <tr>
+            <td width="50%"><h2>Students List</h2></td>
+            <td width="50%"><a asp-controller="Student" asp-action="Create" class="btn btn-primary">Add Student</a></td>
+        </tr>
+
+    </table>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Biography
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td>@data.Name</td>
+                <td>@data.Address</td>
+                <td>@data.PhoneNumber</td>
+                <td>@data.Bio</td>
+                <td>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@data.Id" class="btn btn-outline-success">Edit</a>
+                    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal_@data.Id">Delete</button>
+                    <div class="modal fade" id="deleteModal_@data.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@data.Id" type="button" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+    
+</table>

@@ -1,0 +1,17 @@
+﻿@model StudentImage
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form method="post" asp-action="Create">
+<div class="mb-3">
+    <label asp-for="Title" class="form-label">Title</label>
+    <input asp-for="Title" class="form-control" />
+    <label asp-for="ImageFile" class="form-label">Upload Images</label>
+    <input class="form-control" type="file" asp-for="ImageFile"  multiple>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+
