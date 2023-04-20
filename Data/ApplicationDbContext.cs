@@ -10,6 +10,6 @@ namespace StudentRecord.Data
 
         }
         public DbSet<Student> Students { get; set; }
-        public DbSet<StudentImage> StudentImages { get; set; }
+       
     }
 }
