@@ -11,8 +11,20 @@ namespace StudentRecord.Controllers
         {
             _db=db;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            ViewData["search"] = searchString;
+            if (_db.Students == null)
+            {
+                return Problem("Not Found");
+            }
+            var student = from s in _db.Students
+                          select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                student = student.Where(s => s.Name == searchString);
+            }
+            return View(student);
             IEnumerable<Student> studentobj = _db.Students;
             return View(studentobj);
         }
